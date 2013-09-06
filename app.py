@@ -13,10 +13,6 @@ def _get_module(module):
 	else:
 		flask.abort(404)
 
-@app.route('/hello')
-def test():
-	return "Hello world."
-
 @app.route('/<module>.html')
 def human_readable(module):
 	return _get_module(module).human()

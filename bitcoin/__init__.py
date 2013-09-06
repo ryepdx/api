@@ -1,5 +1,7 @@
+import flask
+
 def human():
-	return "Yes."
+	return flask.render_template("bitcoin.html", **machine())
 
 def machine():
-	return { "answer": "01011001 01100101 01110011 0101110" }
+	return { "donation_address": "1HXERr3GXcKDMs1J5dM59GWL5ZfWBxNLw9" }
