@@ -9,7 +9,7 @@ app = flask.Flask(__name__)
 # This is a helper function.
 def _get_module(module):
 	if os.path.isdir(module):
-		return __import__(module, fromlist=['']).human()
+		return __import__(module, fromlist=[''])
 	else:
 		flask.abort(404)
 
