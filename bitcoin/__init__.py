@@ -1,0 +1,2 @@
+def human():
+	return "Yes."
