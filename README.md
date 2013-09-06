@@ -9,4 +9,4 @@ With that said, every endpoint has a human-readable representation and a machine
 
 If you think this experiment sounds like loads of fun, feel free to fork and run your own version.
 
-The version in this repository can be accessed at the http://ryepdx.com/api endpoint.
+The version in this repository will soon be accessable at the http://ryepdx.com/api endpoint.
