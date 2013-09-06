@@ -23,4 +23,4 @@ def human_readable(module):
 
 @app.route('/<module>.json')
 def machine_readable(module):
-	return _get_module(module).machine()
+	return flask.json.jsonify(_get_module(module).machine())
