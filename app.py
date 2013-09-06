@@ -8,8 +8,8 @@ app = flask.Flask(__name__)
 # Purposely not a route.
 # This is a helper function.
 def _get_module(module):
-	if os.path.isdir(path):
-		return __import__(path, fromlist=['']).human()
+	if os.path.isdir(module):
+		return __import__(module, fromlist=['']).human()
 	else:
 		flask.abort(404)
 
