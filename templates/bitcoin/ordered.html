@@ -1,0 +1,9 @@
+{% extends "_base.html" %}
+{% block content %}
+<h1>Bitcoin ordered</h1>
+<p>Please write your Bitcoin address (or a <a href="https://payb.tc">PayB.TC</a> URL) and your confirmation code ({{ order_token }}) on a scrap of paper and include it with the cash you send to:<br>
+{% for line in mailing_address %}
+{{ line }}<br>
+{% endfor %}
+</p>
+{% endblock %}

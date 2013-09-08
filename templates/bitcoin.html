@@ -1,11 +1,6 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Ryepdx's cyborg API</title>
-	</head>
-	<body>
-		<h1>Donate Bitcoin</h1>
-		<p>Want to support what I'm doing? Have a thing for buying coffee for random Internet strangers? Feel free to shoot me some BTC at the following address:</p>
-		<p><a href="bitcoin:{{ donation_address }}">{{ donation_address }}</a></p>
-	</body>
-</html>
+{% extends "_base.html" %}
+{% block content %}
+<h1>Donate Bitcoin</h1>
+<p>Want to support what I'm doing? Have a thing for buying coffee for random Internet strangers? Feel free to shoot me some BTC at the following address:</p>
+<p><a href="bitcoin:{{ donation_address }}">{{ donation_address }}</a></p>
+{% endblock %}

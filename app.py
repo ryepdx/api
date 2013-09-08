@@ -1,25 +1,18 @@
 #!/usr/bin/env python2.6
 import flask
 import os
+import sys
 import inspect
 import logging
+import settings
 import werkzeug.exceptions
+from flask.ext.sqlalchemy import SQLAlchemy
+from _cyborg import Cyborg
 
 app = flask.Flask(__name__)
-
-# Defining a couple constants to
-# simplify debugging.
-MACHINE = ".machine"
-HUMAN = ".human"
-
-# Purposely not routes.
-# These are helper functions.
-def _get_module(path):
-	try:
-		return __import__(path, fromlist=[''])
-	except ImportError:
-		print path
-		flask.abort(404)
+app.config['SQLALCHEMY_DATABASE_URI'] = settings.DB_URI
+db = SQLAlchemy(app)
+queen_borg = Cyborg(sys.modules[__name__])
 
 def _fetch_response(module, request):
 	http_method = request.method.lower()
@@ -37,16 +30,17 @@ def _fetch_response(module, request):
 
 # Purposely routes.
 # These are not helper functions. :-)
-@app.route('/<path:path>.html')
+@app.route('/<path:path>.html', methods=["POST","GET"])
 def human_readable(path):
+	print path
 	return _fetch_response(
-		_get_module(path.replace('/', '.') + HUMAN), flask.request)
+		getattr(queen_borg, path.replace('/', '.')).human, flask.request)
 	
 
-@app.route('/<path:path>.json')
+@app.route('/<path:path>.json', methods=["POST", "GET"])
 def machine_readable(path):
 	return flask.json.jsonify(_fetch_response(
-		_get_module(path.replace('/', '.') + MACHINE), flask.request)
+		getattr(queen_borg, path.replace('/', '.')).machine, flask.request)
 	)
 
 @app.route('/<path:path>')
