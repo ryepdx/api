@@ -29,6 +29,7 @@ class Inventory(object):
 		return str(self.value)
 
 if __name__ == "__main__":
-	import sys
-	with open("inventory.json", "w") as handle:
+	import sys, os
+	curdir = os.path.dirname(os.path.realpath(__file__))
+	with open(curdir + "/inventory.json", "w") as handle:
 		handle.write(_addressInfoFromInternet(sys.argv[1], sys.argv[2]))

@@ -36,6 +36,8 @@ class WeightedRates(object):
 		)
 
 if __name__ == "__main__":
+	import os
+	curdir = os.path.dirname(os.path.realpath(__file__))
 	markets = urllib2.urlopen("http://api.bitcoincharts.com/v1/markets.json").read()
-	with open("markets.json", "w") as handle:
+	with open(curdir + "/markets.json", "w") as handle:
 		handle.write(markets)
