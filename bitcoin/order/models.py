@@ -10,7 +10,8 @@ class OrderGet(object):
 		params = {
 			"order_token": self.order.token, 
 			"mailing_address": settings.BTC_MAILING_ADDRESS,
-			"usd": decimal.Decimal(self.order.usd).quantize(decimal.Decimal('0.01'))
+			"usd": decimal.Decimal(str(self.order.usd)
+				).quantize(decimal.Decimal('0.01'))
 		}
 		params["order_stylesheet"] = flask.url_for('static', filename='bitcoin/order.css')
 		return flask.render_template("bitcoin/ordered.html", **params)

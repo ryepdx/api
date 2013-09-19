@@ -16,8 +16,8 @@ class WeightedRates(object):
 			markets = json.loads(rawMarkets)
 
 		bitstamp = filter(lambda mkt: mkt["symbol"] == "bitstampUSD", markets)[0]
-		self.ask = Decimal(bitstamp["ask"])
-		self.bid = Decimal(bitstamp["bid"])
+		self.ask = Decimal(str(bitstamp["ask"]))
+		self.bid = Decimal(str(bitstamp["bid"]))
 
 		#self.price = Decimal(json.loads(
 		#	urllib2.urlopen("http://api.bitcoincharts.com/v1/weighted_prices.json").read()
