@@ -41,8 +41,8 @@ def post(request):
 	# Return amount bought.
 	return {
 		"order_token": token,
-		"btc_ordered": btc,
-		"btc_price": price,
-		"usd_to_send": usd,
+		"btc_ordered": str(btc),
+		"btc_price": str(price),
+		"usd_to_send": str(usd),
 		"mailing_address": settings.BTC_MAILING_ADDRESS
 	}
