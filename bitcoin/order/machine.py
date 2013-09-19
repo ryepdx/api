@@ -8,14 +8,14 @@ def get(*args):
 		address = settings.INVENTORY_ADDRESS, user_agent = settings.USER_AGENT
 	)
 	
-	reply = { "inventory": inventory }
+	reply = { "inventory": str(inventory.value) }
 	
 	if (inventory.value <= settings.BUY_THRESHOLD):
-		reply["buy_price"] = prices.buy
+		reply["buy_price"] = str(prices.buy)
 		reply["mailing_address"] = settings.BTC_MAILING_ADDRESS
 	
 	if (inventory.value >= settings.SELL_THRESHOLD):
-		reply["sell_price"] = prices.sell
+		reply["sell_price"] = str(prices.sell)
 		reply["btc_address"] = settings.INVENTORY_ADDRESS
 	
 	return reply
