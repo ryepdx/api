@@ -1,18 +1,51 @@
 {% extends "_base.html" %}
-{% block content %}
-<div>
-	<h1>Buy or Sell Bitcoin</h1>
-	<p>Sometimes I'm looking to buy bitcoin, and sometimes I'm looking to sell it. Find out what my price points are here.</p>
-	<p>Buying @ ${{ buy_price }}</p>
-	<p>Selling @ ${{ sell_price }}</p>
-</div>
+{% block styles %}
+	<link rel="stylesheet" type="text/css" href="{{ order_stylesheet }}">
+	<link href='http://fonts.googleapis.com/css?family=Raleway:900|Jacques+Francois' rel='stylesheet' type='text/css'>
+{% endblock %}
 
-<div>
-	<h1>Buy Bitcoin via mail</h1>
+{% block scripts %}
+	{% if sell_price %}
+		<script>SELL_PRICE = {{sell_price}};</script>
+	{% endif %}
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	{% for script in scripts %}
+		<script src="{{ script }}"></script>
+	{% endfor %}
+{% endblock %}
+
+{% block content %}
+<div class="heading centered container">
+	<h1>Buy Bitcoin via Snail Mail</h1>
+	
+	<span>Currently I am</span>
+	{% if sell_price %}
+		<div class="offer">
+			<span class="selling">selling</span>
+			<span class="price">at ${{ sell_price }}</span>
+		</div>
+	{% endif %}
+	{% if sell_price and buy_price %}
+		<div class="conjunction">
+			<span class="reverse">&#x2767;</span>
+			<span>and</span>
+			<span>&#x2767;</span>
+		</div>
+	{% endif %}
+	{% if buy_price %}
+		<div class="offer">
+			<span class="buying">buying</span>
+			<span class="price">at ${{ buy_price }}</span>
+		</div>
+	{% endif %}
+</div>
+<div class="subheading centered">(I have {{ inventory }} BTC on hand.)</div>
+<div class="centered">
 	<form action="" method="POST">
-		<p>USD: <input name="usd" type="text"></p>
+		<p>"I want to buy $<input name="usd" type="text" maxlength="4"> (USD) worth of bitcoin."</p>
+		<p id="response"></p>
 		<input type="hidden" name="seed" value="somerandomvaluehere">
-		<input type="submit">
+		<input type="submit" value='"Deal!"'  disabled>
 	</form>
 </div>
 {% endblock %}

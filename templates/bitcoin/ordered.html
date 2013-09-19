@@ -1,9 +1,25 @@
 {% extends "_base.html" %}
+{% block styles %}
+	<link rel="stylesheet" type="text/css" href="{{ order_stylesheet }}">
+	<link href='http://fonts.googleapis.com/css?family=Raleway:900|Jacques+Francois' rel='stylesheet' type='text/css'>
+{% endblock %}
+
 {% block content %}
-<h1>Bitcoin ordered</h1>
-<p>Please write your Bitcoin address (or a <a href="https://payb.tc">PayB.TC</a> URL) and your confirmation code ({{ order_token }}) on a scrap of paper and include it with the cash you send to:<br>
+<div class="heading centered container">
+<h1>Bitcoin Ordered!</h1>
+<span>Please write your confirmation code ({{ order_token }}) and Bitcoin address (or <a href="https://payb.tc">PayB.TC</a> URL) on a scrap of paper and send it, along with ${{usd}} cash (USD), to:</span>
+<span class="address">
 {% for line in mailing_address %}
 {{ line }}<br>
 {% endfor %}
-</p>
+</span>
+<span>
+	Kindly note:
+	<ol>
+		<li>Envelopes must be postmarked within 24 hours of order placement.</li>
+		<li>Only the last order you've placed within the last 24 hours will be considered valid.</li>
+		<li>This is not an exchange. This is simply the way I am choosing to trade my bitcoin.</li>
+	</ol>
+</span>
+</div>
 {% endblock %}

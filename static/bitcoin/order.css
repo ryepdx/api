@@ -1,0 +1,93 @@
+body {
+	background: radial-gradient(circle, #fff, #ffc);
+}
+
+body, input {
+	font-family: 'Jacques Francois', serif;
+}
+
+input[type=text] {
+	background: none;
+	border: none;
+	border-bottom: thin dotted;
+	font-size: 1.25em;
+	width: 3em
+}
+
+input[type=text]:hover, input[type=text]:focus {
+	background-color: #dda;
+}
+
+.heading {
+	font-weight: bold;
+	font-size: 1.5em;
+}
+
+.heading > span:first-of-type {
+	margin-top: 1.75em;
+}
+
+.heading span, .heading div {
+	display: block;
+	clear: both;
+}
+
+.heading .selling, .heading .buying {
+	text-transform: uppercase;
+	font-size: 3em;
+	font-family: "Raleway", sans-serif;
+}
+
+.heading .selling {
+	color: #0a0;
+}
+
+.heading .buying {
+	color: #a00;
+}
+
+.subheading {
+	margin: 1.5em 0px 2em 0px;
+}
+
+.centered {
+	text-align: center;
+}
+
+.reverse {
+	-webkit-transform:rotateY(180deg);
+	-moz-transform:rotateY(180deg);
+	-o-transform:rotateY(180deg);
+	-ms-transform:rotateY(180deg);
+}
+
+.conjunction {
+	margin: 1em 0px 0.75em 0px;
+	padding: 0px;
+}
+
+.conjunction span {
+	display: inline-block;
+}
+
+input[type=submit] {
+	display: none;
+	font-size: 1.5em;
+	margin-top: 0.5em;
+}
+
+.address {
+	width: 15em;
+	margin: 1.5em auto;
+	padding: 1em;
+}
+
+.container {
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+ol {
+	text-align: left;
+}

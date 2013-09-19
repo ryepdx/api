@@ -1,13 +1,24 @@
 import app, flask, rates, hashlib, models, random, settings, time
 from decimal import Decimal, ROUND_DOWN
+from inventory import Inventory
 
 def get(*args):
 	prices = rates.WeightedRates(settings.BTC_MARGIN)
-
-	return {
-		"buy_price": prices.buy,
-		"sell_price": prices.sell
-	}
+	inventory = Inventory(
+		address = settings.INVENTORY_ADDRESS, user_agent = settings.USER_AGENT
+	)
+	
+	reply = { "inventory": inventory }
+	
+	if (inventory.value <= settings.BUY_THRESHOLD):
+		reply["buy_price"] = prices.buy
+		reply["mailing_address"] = settings.BTC_MAILING_ADDRESS
+	
+	if (inventory.value >= settings.SELL_THRESHOLD):
+		reply["sell_price"] = prices.sell
+		reply["btc_address"] = settings.INVENTORY_ADDRESS
+	
+	return reply
 
 def post(request):
 	# Generate a unique token for this order.

@@ -32,7 +32,6 @@ def _fetch_response(module, request):
 # These are not helper functions. :-)
 @app.route('/<path:path>.html', methods=["POST","GET"])
 def human_readable(path):
-	print path
 	return _fetch_response(
 		getattr(queen_borg, path.replace('/', '.')).human, flask.request)
 	

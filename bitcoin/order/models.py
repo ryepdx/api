@@ -1,7 +1,20 @@
 from app import db
 from _wrappers import JsonGet, HtmlGet
-import datetime
+import datetime, decimal, flask, settings
 
+class OrderGet(object):
+	def __init__(self, order):
+		self.order = order
+
+	def get(self, *args):
+		params = {
+			"order_token": self.order.token, 
+			"mailing_address": settings.BTC_MAILING_ADDRESS,
+			"usd": decimal.Decimal(self.order.usd).quantize(decimal.Decimal('0.01'))
+		}
+		params["order_stylesheet"] = flask.url_for('static', filename='bitcoin/order.css')
+		return flask.render_template("bitcoin/ordered.html", **params)
+		
 class Order(db.Model):
 	token = db.Column(db.String(64), primary_key = True)
 	seed = db.Column(db.Integer)
@@ -42,4 +55,4 @@ class Order(db.Model):
 
 	@property
 	def human(self):
-		return HtmlGet(self)
+		return OrderGet(self)

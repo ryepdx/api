@@ -1,3 +1,5 @@
 *.swp
 *.pyc
+inventory.json
+markets.json
 settings.py

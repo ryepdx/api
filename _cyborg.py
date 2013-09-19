@@ -2,21 +2,24 @@ import sys
 import os
 
 class Cyborg(object):
-        def __init__(self, module, import_path=[]):
-                self.module = module
+	def __init__(self, module, import_path=[]):
+		self.module = module
 		self.import_path = import_path
 
-        def __getattr__(self, attr):
+	def __getattr__(self, attr):
 		attrs = attr.split('.')
 		attr_root = attrs.pop(0)
 		module_path = os.path.dirname(self.module.__file__)
 
-                try:
+		try:
 			if hasattr(self.module, "__getattr__"):
-	                        cyborg = self.module.__getattr__(attr_root)
+				try:
+					cyborg = self.module.__getattr__(attr_root)
+				except AttributeError:
+					cyborg = getattr(self.module, attr_root)
 			else:
 				cyborg = getattr(self.module, attr_root)
-                except AttributeError:
+		except AttributeError:
 			if not (os.path.exists(module_path + '/' + attr_root + ".py")
 			or os.path.exists(module_path + '/' + attr_root + "/__init__.py")):
 				raise
