@@ -1,4 +1,4 @@
-import json, urllib2
+import os, json, urllib2
 from decimal import Decimal
 
 def _addressInfoFromInternet(address, user_agent):
@@ -11,15 +11,16 @@ class Inventory(object):
 	def __init__(self, address = None, user_agent = None):
 		self.address = address
 		self.user_agent = user_agent
+		curdir = os.path.dirname(os.path.realpath(__file__))
 		
 		try:
-			with open("inventory.json", "r") as handle:
+			with open(curdir + "/inventory.json", "r") as handle:
 				addrInfo = json.loads(handle.read())
 		except:
 			rawAddrInfo = _addressInfoFromInternet(self.address, self.user_agent)
 			
 			try:
-				with open("inventory.json", "w") as handle:
+				with open(curdir + "/inventory.json", "w") as handle:
 					handle.write(rawAddrInfo)
 			finally:
 				addrInfo = json.loads(rawAddrInfo)
@@ -29,7 +30,7 @@ class Inventory(object):
 		return str(self.value)
 
 if __name__ == "__main__":
-	import sys, os
+	import sys
 	curdir = os.path.dirname(os.path.realpath(__file__))
 	with open(curdir + "/inventory.json", "w") as handle:
 		handle.write(_addressInfoFromInternet(sys.argv[1], sys.argv[2]))
