@@ -30,6 +30,12 @@ def _fetch_response(module, request):
 
 # Purposely routes.
 # These are not helper functions. :-)
+# Redirects to help people not get confused.
+@app.route('/bitcoin/order<extension>', methods=["POST", "GET"])
+def redir(extension):
+	return flask.redirect("/bitcoin/trade%s" % extension)
+
+# Cyborg foundational routes.
 @app.route('/<path:path>.html', methods=["POST","GET"])
 def human_readable(path):
 	return _fetch_response(
