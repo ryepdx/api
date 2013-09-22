@@ -16,7 +16,7 @@
 
 {% block content %}
 <div class="heading centered container">
-	<h1>Buy Bitcoin via Snail Mail</h1>
+	<h1>Trade Bitcoin via Snail Mail</h1>
 	
 	<span>Currently I am</span>
 	{% if sell_price %}
@@ -39,6 +39,7 @@
 		</div>
 	{% endif %}
 </div>
+{% if sell_price %}
 <div class="subheading centered">(I have {{ inventory }} BTC on hand.)</div>
 <div class="centered">
 	<form action="" method="POST">
@@ -48,4 +49,10 @@
 		<input type="submit" value='"Deal!"'  disabled>
 	</form>
 </div>
+{% endif %}
+{% if buy_price %}
+<div class="centered">
+	<p>If you have bitcoin to sell, please contact me: ryepdx at gmail dot com.</p>
+</div>
+{% endif %}
 {% endblock %}
