@@ -1,9 +1,7 @@
 #!/usr/bin/env python2.6
 import flask
-import os
 import sys
 import settings
-import werkzeug.exceptions
 from flask.ext.sqlalchemy import SQLAlchemy
 from cyborg import Cyborg
 

@@ -3,6 +3,7 @@ import os
 import inspect
 import logging
 import flask
+import werkzeug.exceptions
 
 class Cyborg(object):
 	def __init__(self, module, import_path=[]):
@@ -37,7 +38,7 @@ class Cyborg(object):
 		return cyborg
 
 	# Internal helper function.
-	def _fetch_response(self, module, request):
+	def _fetch_response(self, consumer, module, request):
 		http_method = request.method.lower()
 
 		if not hasattr(module, http_method):
@@ -49,7 +50,9 @@ class Cyborg(object):
 			raise werkzeug.exceptions.MethodNotAllowed(
 				valid_methods = valid_methods)
 
-		return getattr(module, http_method)(request)
+		return getattr(
+            getattr(module, http_method), consumer
+        )(request)
 
 	# Sets up the default Cyborg routes.
 	# Should only ever get called on the root Cyborg object.
@@ -58,11 +61,11 @@ class Cyborg(object):
 		# Cyborg foundational routes.
 		@app.route('/<path:path>%s' % human_ext, methods=["POST","GET"])
 		def human_readable(path):
-			return self._fetch_response(
-				getattr(self, path.replace('/', '.')).human, flask.request)
+			return self._fetch_response('human',
+				getattr(self, path.replace('/', '.')), flask.request)
 	
 		@app.route('/<path:path>%s' % machine_ext, methods=["POST", "GET"])
 		def machine_readable(path):
-			return flask.json.jsonify(self._fetch_response(
-				getattr(self, path.replace('/', '.')).machine, flask.request)
+			return flask.json.jsonify(self._fetch_response('machine',
+				getattr(self, path.replace('/', '.')), flask.request)
 			)
