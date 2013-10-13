@@ -1,12 +1,13 @@
 from app import db
-from _wrappers import JsonGet, HtmlGet
+from cyborg import DefaultGet
 import datetime, decimal, flask, settings
 
-class OrderGet(object):
+class OrderGet(DefaultGet):
 	def __init__(self, order):
 		self.order = order
+		super(OrderGet, self).__init__(order)
 
-	def get(self, *args):
+	def human(self, *args):
 		params = {
 			"order_token": self.order.token, 
 			"mailing_address": settings.BTC_MAILING_ADDRESS,
@@ -51,9 +52,5 @@ class Order(db.Model):
 		return (attr, getattr(self, attr))
 
 	@property
-	def machine(self):
-		return JsonGet(self)
-
-	@property
-	def human(self):
+	def get(self):
 		return OrderGet(self)

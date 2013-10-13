@@ -69,3 +69,17 @@ class Cyborg(object):
 			return flask.json.jsonify(self._fetch_response('machine',
 				getattr(self, path.replace('/', '.')), flask.request)
 			)
+
+
+class DefaultGet(object):
+	def __init__(self, obj):
+		self.obj_dict = dict(obj)
+
+	def human(self, request):
+		return flask.render_template(
+			"_human.html", 
+			_dict = super(HtmlGet, self).get(request)
+		)
+
+	def machine(self, request):
+		return self.obj_dict
